@@ -1,0 +1,205 @@
+<div class="page-width">
+<h3 class="light-subtitle" data-aos="flip-up" data-aos-duration="1000">Featured Products</h3>
+  <p class="text-subtitle" data-aos="flip-down" data-aos-duration="1000">High Performance websites for your company</p>
+  <div class="flex flex--grid mgb-50">
+    {% assign image_size = '680x' %}
+    {% case section.blocks.size %}
+      {% when 1 %}
+        {% assign flex_size = '' %}
+        {% assign image_size = '1140x' %}
+      {% when 2 %}
+        {% assign flex_size = 'medium-up--one-half' %}
+      {% when 3 %}
+        {% assign flex_size = 'medium-up--one-third' %}
+      {% else %}
+        {% assign flex_size = 'medium-up--one-quarter' %}
+    {% endcase %}
+    {% for block in section.blocks %}
+      <div class="flex__item flex {{ flex_size }}" {{ block.shopify_attributes }} data-aos="flip-up" data-aos-duration="1000">
+        <noscript class="link-block-no-js">
+          <a href="{{ block.settings.link }}" class="link-block" {% if block.settings.image != blank %}style="background-image: url({{ block.settings.image | img_url: image_size | format: 'jpg' }});"{% endif %}>
+          {% if block.settings.image == blank %}
+            {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+            <div class="placeholder-background">
+              {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {% endif %}
+            <div class="flex flex--center-vertical">
+              <div class="flex__item">
+                <span class="emphasized-title h1 link-block__cta">
+                  {{ block.settings.cta_label | escape }}
+                </span>
+              </div>
+            </div>
+          </a>
+        </noscript>
+          <a href="{{ block.settings.link }}" class="link-block lazyload"
+           {% if block.settings.image != blank %}
+              style="background-position: {{ block.settings.image_align }};
+                     background-image: url('{{ block.settings.image | img_url: '300x300' }});"
+            {% endif %}
+            data-bgset="{% include 'bgset', image: block.settings.image %}"
+            data-sizes="auto"
+            data-parent-fit="cover">
+          {% if block.settings.image == blank %}
+            {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+            <div class="placeholder-background">
+              {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {% endif %}
+          <div class="flex flex--center-vertical">
+            <div class="flex__item">
+              <span class="emphasized-title h1 link-block__cta">
+                {{ block.settings.cta_label | escape }}
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="info-section" data-aos="zoom-out" data-aos-duration="2000">
+     <div class="grid">
+     <h4>Why you need a Website?</h4>
+         <div class="grid__item medium-up--one-half info-box">
+            <ul>
+                <li>
+                  <img src="https://cdn.shopify.com/s/files/1/0038/3071/0342/files/idea_134x134_crop_center@2x.png" class="info-icon">
+                  <h6>Easy to Customize</h6>
+                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </li>
+                <li class="right">
+                  <img src="https://cdn.shopify.com/s/files/1/0038/3071/0342/files/image-editing_134x134_crop_center@2x.png" class="info-icon">
+                  <h6>Powerful Security</h6>
+                  <p>Letraset sheets containing Lorem Ipsum passages, and more recently with desktop. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </li>
+            </ul>
+         </div>
+         <div class="grid__item medium-up--one-half info-box">
+            <ul>
+                <li>
+                  <img src="https://cdn.shopify.com/s/files/1/0038/3071/0342/files/portfolio_134x134_crop_center@2x.png" class="info-icon">
+                  <h6>Easy to Customize</h6>
+                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                </li>
+            </ul>
+         </div>
+     </div>
+  </div>
+
+  {% if section.blocks.size == 0 %}
+    {% include 'no-blocks' %}
+  {% endif %}
+</div>
+
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Mehrere Linkblöcke",
+    "en": "Multiple link blocks",
+    "es": "Enlaces múltiples",
+    "fr": "Blocs de liens multiples",
+    "it": "Più gruppi di link",
+    "ja": "複数のリンクのブロック",
+    "pt-BR": "Blocos de links múltiplos"
+  },
+  "class": "index-section",
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "link_block",
+      "name": {
+        "de": "Linkblock",
+        "en": "Link block",
+        "es": "Vincular bloque",
+        "fr": "Bloc de lien",
+        "it": "Gruppo di link",
+        "ja": "リンクのブロック",
+        "pt-BR": "Bloco de link"
+      },
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": {
+            "de": "Foto",
+            "en": "Image",
+            "es": "Imagen",
+            "fr": "Image",
+            "it": "Immagine",
+            "ja": "画像",
+            "pt-BR": "Imagem"
+          }
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": {
+            "de": "Link",
+            "en": "Link",
+            "es": "Enlace",
+            "fr": "Lien",
+            "it": "Link",
+            "ja": "リンク",
+            "pt-BR": "Link"
+          }
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": {
+            "de": "Link-Label",
+            "en": "Link label",
+            "es": "Vincular etiqueta",
+            "fr": "Étiquette de lien",
+            "it": "Etichetta link",
+            "ja": "リンクラベル",
+            "pt-BR": "Etiqueta de link"
+          },
+          "default": {
+            "de": "Link-Label",
+            "en": "Link label",
+            "es": "Vincular etiqueta",
+            "fr": "Étiquette de lien",
+            "it": "Etichetta link",
+            "ja": "リンクラベル",
+            "pt-BR": "Etiqueta de link"
+          }
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "de": "Mehrere Linkblöcke",
+        "en": "Multiple link blocks",
+        "es": "Enlaces múltiples",
+        "fr": "Blocs de liens multiples",
+        "it": "Più gruppi di link",
+        "ja": "複数のリンクのブロック",
+        "pt-BR": "Blocos de links múltiplos"
+      },
+      "category": {
+        "de": "Foto",
+        "en": "Image",
+        "es": "Imagen",
+        "fr": "Image",
+        "it": "Immagine",
+        "ja": "画像",
+        "pt-BR": "Imagem"
+      },
+      "blocks": [
+        {
+          "type": "link_block"
+        },
+        {
+          "type": "link_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
